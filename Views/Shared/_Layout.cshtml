@@ -1,0 +1,55 @@
+﻿@{
+    string controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SububanMedicalGroupSMGWebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SububanMedicalGroupSMGWebApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body style="background-image: url('https://wallpapers.com/images/hd/medical-background-cjge7e89adg6ub8x.jpg');">
+    <div class="container">
+        <header class="text-center text-white">
+            <h1 class="bg-primary mt-5 p-3">Sububan Medical Group SMGWebApp</h1>
+
+            @* show any message in TempData *@
+            @if (TempData.Keys.Contains("message"))
+            {
+                <h4 class="bg-success p-2">@TempData["message"]</h4>
+            }
+            @if (controller != "Favorites")
+            {
+                var session = new SububanMedicalGroupSMGWebApp.Models.ExtensionMethods.SMGSession(Context.Session);
+                int? count = session.GetMyPhycCount();
+                @if (count.HasValue)
+                {
+                    <h5 class="bg-info p-2">
+                        <a asp-controller="Favorites" asp-action="Index"
+                           class="text-white">My Favorite Physicians</a>
+                        <span class="badge bg-light text-black">@count</span>
+                    </h5>
+                }
+            }
+        </header>
+        <main role="main"  class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - SububanMedicalGroupSMGWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

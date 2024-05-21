@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<SububanMedicalGroupSMGWebApp.Models.DomainModels.PatientRegistration>
+@{
+    ViewData["Title"] = "Patients List";
+}
+<div>
+<h1>@ViewBag.Title</h1>
+<div class="row">
+    <div class="col-md-10">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                        <th>UserName</th>
+                        <th>Date of Birth (DOB)</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Home Address</th>
+                        <th>Social Security Number</th>
+                        <th>Medical Insurance</th>
+                        <th>RegistrationDate</th>
+                        <th>Status</th>
+            </thead>
+            <tbody>
+                @foreach (var patients in Model)
+                {
+                    <tr>
+                        <td>@patients.Username</td>
+                        <td>@patients.DOB</td>
+                        <td>@patients.EmailAddress</td>
+                        <td>@patients.PhoneNumber</td>
+                        <td>@patients.HomeAddress</td>
+                        <td>@patients.SocialSecurityNumber</td>
+                        <td>@patients.MedicalInsurance</td>
+                        <td>@patients.RegistrationDate</td>
+                        <td>@patients.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

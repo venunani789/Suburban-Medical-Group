@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "_Layout";
+    string controller =
+        ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    string action =
+        ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+}
+
+    <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/images/sub-logo.png" style="width: 8em;" />
+                Sububan Medical Group (SMG)
+            </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "LoginPage" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="LoginPage">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "FindAProvider" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="FindAProvider"><i class="fa fa-stethoscope" aria-hidden="true"></i>Find A Provider</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "Service" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Service"><i class="fa fa-ambulance" aria-hidden="true"></i>Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "Resources" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Resources"><i class="fa fa-book" aria-hidden="true"></i>Resource</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "ImmediateCare" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="ImmediateCare"><i class="fa fa-plus-square-o"></i>ImmediateCare</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <nav id="navbarSupportedContent" style="margin-top:4em" class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div id="sticky" class="container-fluid">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark @(controller == "Home" && action == "Index" ? "active" : "")"
+                       asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark @(controller == "Patient" && action == "ScheduletheAppointment" ? "active" : "")" asp-area="" asp-controller="Patient" asp-action="ScheduletheAppointment"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>Schedule an appointment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark @(controller == "Patient" && action == "MessagingPhysician" ? "active" : "")" asp-area="" asp-controller="Patient" asp-action="MessagingPhysician"><i class="fa fa-comments" aria-hidden="true"></i>Messaging to physician</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark @(controller == "Patient" && action == "TestResults" ? "active" : "")" asp-area="" asp-controller="Patient" asp-action="TestResults"><i class="fa fa-book" aria-hidden="true"></i>My test results</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark @(controller == "Patient" && action == "FillPrescription" ? "active" : "")" asp-area="" asp-controller="Patient" asp-action="FillPrescription"><i class="fa fa-file-text" aria-hidden="true"></i>Fill Prescription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark @(controller == "Patient" && action == "RequestmedicalRecord" ? "active" : "")" asp-area="" asp-controller="Patient" asp-action="RequestmedicalRecord"><i class="fa fa-align-justify" aria-hidden="true"></i>Request medical record</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark @(controller == "Patient" && action == "PayBill" ? "active" : "")" asp-area="" asp-controller="Patient" asp-action="PayBill"><i class="fa fa-credit-card-alt" aria-hidden="true"></i>Pay bill</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+@section scripts{
+    @RenderSection("scripts", required:false)
+}

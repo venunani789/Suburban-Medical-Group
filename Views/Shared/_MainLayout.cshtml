@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "_Layout";
+
+    string controller =
+        ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    string action =
+        ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+}
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3 mt-0">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/images/sub-logo.png" style="width: 8em;" />
+                Sububan Medical Group (SMG)
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "PatientRegistration" && action == "Login" ? "active" : "")" asp-area="" asp-controller="PatientRegistration" asp-action="Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "FindaProvider" && action == "Index" ? "active" : "")" asp-area="" asp-controller="FindaProvider" asp-action="Index"><i class="fa fa-stethoscope" aria-hidden="true"></i>Find A Provider</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "Service" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Service"><i class="fa fa-ambulance" aria-hidden="true"></i>Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "Resources" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Resources"><i class="fa fa-book" aria-hidden="true"></i>Resource</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "ImmediateCare" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="ImmediateCare"><i class="fa fa-plus-square-o"></i>ImmediateCare</a>
+                    </li>
+                    @using Microsoft.AspNetCore.Identity
+                    @using SububanMedicalGroupSMGWebApp.Models.DomainModels;
+                    @inject SignInManager<User> signInManager
+
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        // signed-in user - Log Out button and username and change password link
+                        <li class="nav-item">
+                            <a class="nav-link @Nav.Active("ChangePassword", action)"
+                           asp-action="ChangePassword" asp-controller="Account" asp-area="">
+                                <span class="fas fa-edit"></span>&nbsp;Change Password
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" asp-action="LogOut" asp-controller="PatientRegistration"
+                              asp-area="">
+                                <input type="submit" value="Log Out"
+                                       class="btn btn-outline-light" />
+                                <span class="text-light">@User.Identity?.Name</span>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        // anonymous user - Register link and Log In button
+                        <li class="nav-item">
+                            <a class="nav-link @Nav.Active("Registration", action)"
+                           asp-action="Registration" asp-controller="PatientRegistration" asp-area="">
+                                <span class="fas fa-edit"></span>&nbsp;Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Login" asp-controller="Account"
+                           asp-area="" class="btn btn-outline-light">Log In</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-item nav-link"
+                   asp-area="Admin" asp-controller="Physician" asp-action="Index">Admin</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    @RenderBody()
+</main>
+
+@section scripts{
+    @RenderSection("scripts", required:false)
+}

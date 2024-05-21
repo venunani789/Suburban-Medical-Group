@@ -1,0 +1,13 @@
+﻿@model SububanMedicalGroupSMGWebApp.Models.DomainModels.Clinic
+@{
+    ViewData["Title"] = "Delete Physician";
+}
+<div class="mt-5">
+<h1>Confirm Deletion</h1>
+<h3>@Model.AddressTown </h3>
+<form asp-action="Delete" method="post">
+    <button type="submit" class="btn btn-success">Delete</button>
+    <a asp-action="List" class="btn btn-danger">Cancel</a>
+    <input type="hidden" asp-for="ClinicId" />
+</form>
+</div>

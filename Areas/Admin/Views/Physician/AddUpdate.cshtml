@@ -1,0 +1,58 @@
+﻿@model SububanMedicalGroupSMGWebApp.Models.DomainModels.Physician
+@{
+    ViewBag.Title = ViewBag.Action + " Physician";
+}
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/
+                       jquery.validate.unobtrusive.min.js"></script>
+}
+<div class="">
+<h1>@ViewBag.Title</h1>
+<form asp-action="Update" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label"></label>
+        <input asp-for="FirstName" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label"></label>
+        <input asp-for="LastName" class="form-control">
+    </div>
+        <div class="mb-3">
+            <label asp-for="Gender" class="form-label"></label>
+            <select asp-for="Gender" class="form-select" id="format">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+    <div class="mb-3">
+        <label asp-for="DateofBirth" class="form-label"></label>
+        <input asp-for="DateofBirth" type="date" class="form-control">
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Language" class="form-label"></label>
+        <input asp-for="Language" class="form-control">
+    </div>
+    <div class="mb-3">
+            <label asp-for="ClinicId" class="form-label">Clinic Town</label>
+            @*<select class="form-control" id="clinic" name="ClinicId">
+                <!-- Loop through clinics and show town -->
+                @foreach (var clinic in Model.Clinic.OrderBy(c => c.AddressTown))
+                {
+                    <option value="@clinic.ClinicId">@clinic.AddressTown</option>
+                }
+            </select>*@
+            <select asp-for="ClinicId" asp-items="@(new SelectList(ViewBag.Clinic,"ClinicId", "AddressTown"))" class="form-select"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="SpecialityID" class="form-label">Speciality</label>
+            <select asp-for="SpecialityID" asp-items="@(new SelectList(ViewBag.SpecialityTypes,"SpecialityID", "Specialities"))" class="form-select"></select>
+    </div>
+    <input type="hidden" asp-for="PhysicianID" />
+
+    <button type="submit" class="btn btn-success">@ViewBag.Action</button>
+    <a asp-action="List" class="btn btn-danger">Cancel</a>
+</form>
+</div>

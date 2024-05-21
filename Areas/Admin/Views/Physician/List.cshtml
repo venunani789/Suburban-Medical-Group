@@ -1,0 +1,103 @@
+﻿@model SububanMedicalGroupSMGWebApp.Models.ViewModels.PhysicianViewModel
+@{
+    ViewData["Title"] = "Physicians List";
+}
+@if (@TempData["HeaderMessage"] != null)
+{
+    <div style="margin-top:4em" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">@TempData["HeaderMessage"]</h4>
+        <p>@TempData["SuccessMessage"]</p>
+        <hr>
+    </div>
+}
+<div class="row" style="margin-top:3em">
+<h1>@ViewBag.Title</h1>
+    <div class="col-md-2">
+        <form asp-action="Filter" method="post">
+            <div class="mb-3">
+                <label class="form-label"><b>Specialities:</b></label>
+                <select name="filter" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.Specialities,
+                    "SpecialityID", "Specialities", ViewBag.Filters.SpecialityId))">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><b>Gender:</b></label>
+                <select name="filter" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.GenderFilters,
+                    "Key", "Value", ViewBag.Filters.Gender))">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><b>Clinic Town:</b></label>
+                <select name="filter" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.Clinics,
+                    "ClinicId", "AddressTown", ViewBag.Filters.ClinicId))">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a asp-action="List" asp-route-id="" class="btn btn-primary">Clear</a>
+        </form>
+    </div>
+    <div class="col-md-10">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>DOB</th>
+                    <th>Gender</th>
+                    <th>Languages</th>
+                    <th>Speciality</th>
+                    <th>Clinic Town</th>
+                    <th></th>
+                    <th></th>
+            </thead>
+            <tbody>
+                @foreach (var phy in Model.Physicians)
+                {
+                    <tr>
+                        <td>@phy.FirstName</td>
+                        <td>@phy.LastName</td>
+                        <td>@phy.DateofBirth</td>
+                        <td>@phy.Gender</td>
+                        <td>@phy.Language</td>
+                        @if (phy.SpecialityID == 1){<td>Family medicine</td>}
+                        else if (phy.SpecialityID == 2){<td>Internal medicine</td>}
+                        else if (phy.SpecialityID == 3){<td>Pediatrics</td>}
+                        else if (phy.SpecialityID == 4){<td>Allergy</td>}
+                        else if (phy.SpecialityID == 5){<td>Cardiology</td>}
+                        else if (phy.SpecialityID == 6){<td>Chiropractic</td>}
+                        else if (phy.SpecialityID == 7){<td>Dermatology</td>}
+                        else if (phy.SpecialityID == 8){<td>Diabetes</td>}
+                        else if (phy.SpecialityID == 9){<td>Gastroenterology</td>}
+                        else if (phy.SpecialityID == 10){<td>Neurology</td>}
+                        <td>
+                            @{
+                                var clinic = Model.Clinics.FirstOrDefault(c => c.ClinicId == phy.ClinicId);
+                                if (clinic != null)
+                                {
+                                    <text>@clinic.AddressTown</text>
+                                }
+                                else
+                                {
+                                    <text>No Clinic</text>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@phy.PhysicianID" class="btn btn-success">Update</a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@phy.PhysicianID" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="Add" class="btn btn-primary">Add New Physician</a>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿@model SububanMedicalGroupSMGWebApp.Models.ViewModels.SMGViewModel
+@{
+    ViewData["Title"] = "Team Details";
+}
+
+<h2 class="text-center p-2">Physician Details</h2>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <ul class="list-group text-center">
+            <li class="list-group-item">
+                <img src="~/images/@(Model.Physician.FirstName).png" alt="@Model.Physician.FirstName @Model.Physician.LastName" />
+                <h3>@Model.Physician.FirstName @Model.Physician.LastName</h3>
+            </li>
+            <li class="list-group-item">
+                <h4>Speciality: @Model.Physician.Specialities.Specialities</h4>
+            </li>
+            <li class="list-group-item">
+                <h4>AddressTown: @Model.Physician.Clinic.AddressTown</h4>
+            </li>
+            <li class="list-group-item">
+                <form asp-action="Add" asp-controller="Favorites" method="post">
+                    <a asp-action="Index" asp-controller="FindaProvider" class="btn btn-primary"
+                       asp-route-activeSpecs="@Model.ActiveSpecs"
+                       asp-route-activeGens="@Model.ActiveGens"
+                       asp-route-activeTowns="@Model.ActiveTowns">Return to Home Page</a>
+                    <button type="submit" class="btn btn-primary">
+                        Add to Favorites
+                    </button>
+                    <input type="hidden" asp-for="Physician.PhysicianID" />
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

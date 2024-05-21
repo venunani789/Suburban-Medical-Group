@@ -1,0 +1,127 @@
+﻿@model SububanMedicalGroupSMGWebApp.Areas.Admin.Models.Registers
+@{
+    ViewBag.Title = "Add User";
+}
+
+<h2>Add User</h2>
+
+
+<div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+        @*<form asp-action="Registration" method="post">*@
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post" asp-action="Add">
+            <div class="card-body">
+                <h6 class="card-title m-1">Login</h6>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label asp-for="Username" class="form-label"></label>
+                                <input asp-for="Username" class="form-control" type="text" placeholder="Username" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label asp-for="Password" class="form-label"></label>
+                                <input asp-for="Password" class="form-control" type="password" placeholder="Password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label asp-for="ConfirmPassword" class="form-label"></label>
+                                <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="ConfirmPassword" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block confirm-button">Add</button>
+                <a asp-action="Index" class="btn btn-primary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #FFEBEE
+    }
+
+    .card {
+        width: 400px;
+        background-color: #fff;
+        border: none;
+        border-radius: 12px
+    }
+
+    label.radio {
+        cursor: pointer;
+        width: 100%
+    }
+
+        label.radio input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            pointer-events: none
+        }
+
+        label.radio span {
+            padding: 7px 14px;
+            border: 2px solid #eee;
+            display: inline-block;
+            color: #039be5;
+            border-radius: 10px;
+            width: 100%;
+            height: 48px;
+            line-height: 27px
+        }
+
+        label.radio input:checked + span {
+            border-color: #039BE5;
+            background-color: #81D4FA;
+            color: #fff;
+            border-radius: 9px;
+            height: 48px;
+            line-height: 27px
+        }
+
+    .form-control {
+        margin-top: 10px;
+        height: 48px;
+        border: 2px solid #eee;
+        border-radius: 10px
+    }
+
+        .form-control:focus {
+            box-shadow: none;
+            border: 2px solid #039BE5
+        }
+
+    .agree-text {
+        font-size: 12px
+    }
+
+    .terms {
+        font-size: 12px;
+        text-decoration: none;
+        color: #039BE5
+    }
+
+    .confirm-button {
+        border-radius: 10px
+    }
+
+</style>

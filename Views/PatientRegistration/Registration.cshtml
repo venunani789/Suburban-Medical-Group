@@ -1,0 +1,221 @@
+﻿@model SububanMedicalGroupSMGWebApp.Models.DomainModels.PatientRegistration
+@{
+    ViewBag.Title = "Registration";
+}
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/minimum-age.js"></script>
+
+@*    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>*@
+
+}
+@if (@TempData["RegitrationSuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Registration Successfull!</h4>
+        <p>@TempData["RegitrationSuccessMessage"]</p>
+        <hr>
+    </div>
+}
+
+
+<div class="container mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+        <form asp-action="Registration" method="post">
+            <div class="card-body">
+            <h6 class="card-title mb-3">Patient Registration</h6>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <!-- <label for="name">Name</label> --> <input asp-for="Username" class="form-control" type="text" placeholder="Name" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <!-- <label for="name">Name</label> --> <input asp-for="FirstName" class="form-control" type="text" placeholder="FirstName" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <!-- <label for="name">Name</label> --> <input asp-for="LastName" class="form-control" type="text" placeholder="LastName" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <div class="input-group"> <input asp-for="EmailAddress" class="form-control" type="text" placeholder="EmailAddress" />
+                                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="DOB" id="DateDOB" class="form-control" type="date" placeholder="DOB" />
+                                <span asp-validation-for="DOB" id="ValidationDOB" class="text-danger"></span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="PhoneNumber" class="form-control" type="text" placeholder="PhoneNumber" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="HomeAddress" class="form-control" type="text" placeholder="HomeAddress" />
+                                <span asp-validation-for="HomeAddress" class="text-danger"></span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="SocialSecurityNumber" class="form-control" type="text" placeholder="SocialSecurityNumber" />
+                                <span asp-validation-for="SocialSecurityNumber" class="text-danger"></span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" name="MedicalInsurance" asp-for="MedicalInsurance" required>
+                                <option>Aetna</option>
+                                <option>Blue Shield Blue Cross</option>
+                                <option>Cigna</option>
+                                <option>Corvel</option>
+                                <option>First Health </option>
+                            </select>
+                            <span asp-validation-for="MedicalInsurance" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Registrating this appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a> </div> <button type="submit" class="btn btn-primary btn-block confirm-button">Submit</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #FFEBEE
+    }
+
+    .card {
+        width: 400px;
+        background-color: #fff;
+        border: none;
+        border-radius: 12px
+    }
+
+    label.radio {
+        cursor: pointer;
+        width: 100%
+    }
+
+        label.radio input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            pointer-events: none
+        }
+
+        label.radio span {
+            padding: 7px 14px;
+            border: 2px solid #eee;
+            display: inline-block;
+            color: #039be5;
+            border-radius: 10px;
+            width: 100%;
+            height: 48px;
+            line-height: 27px
+        }
+
+        label.radio input:checked + span {
+            border-color: #039BE5;
+            background-color: #81D4FA;
+            color: #fff;
+            border-radius: 9px;
+            height: 48px;
+            line-height: 27px
+        }
+
+    .form-control {
+        margin-top: 10px;
+        height: 48px;
+        border: 2px solid #eee;
+        border-radius: 10px
+    }
+
+        .form-control:focus {
+            box-shadow: none;
+            border: 2px solid #039BE5
+        }
+
+    .agree-text {
+        font-size: 12px
+    }
+
+    .terms {
+        font-size: 12px;
+        text-decoration: none;
+        color: #039BE5
+    }
+
+    .confirm-button {
+        height: 50px;
+        border-radius: 10px
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    const DateDOB = document.getElementById('DateDOB');
+    const ValidationDOB = document.getElementById('ValidationDOB');
+    DateDOB.addEventListener('blur', function () {
+        const inputDOB = DateDOB.value;
+        if (!isDateDOB(inputDOB)) {
+            ValidationDOB.textContent = "Please enter a valid date in the past and not more than 150 years ago.";
+            ValidationDOB.style.color = 'red';
+            DateDOB.focus();
+        }
+    });
+    function isDateDOB(inputDOB) {
+        const date = new Date(inputDOB);
+        if (isNaN(date.getTime()) || date > new Date() || date < new Date(new Date().getFullYear() - 150, 0, 1)) {
+            return false;
+        }
+        return true;
+    }
+</script>

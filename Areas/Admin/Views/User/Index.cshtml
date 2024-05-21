@@ -1,0 +1,166 @@
+﻿@model SububanMedicalGroupSMGWebApp.Areas.Admin.Models.Userviewmodel
+@{
+    ViewData["Title"] = " | Manage Users";
+}
+
+<h1 class="mb-2">Manage Users</h1>
+
+<h5 class="mt-2"><a asp-action="Add">Add a User</a></h5>
+
+<table class="table table-bordered table-striped table-sm">
+    <thead>
+        <tr><th>Username</th><th>Roles</th><th></th><th></th><th></th></tr>
+    </thead>
+    <tbody>
+        @if (Model.Users.Count() == 0)
+        {
+            <tr><td colspan="5">There are no user accounts.</td></tr>
+        }
+        else
+        {
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        @foreach (string role in user.Rolename)
+                        {
+                            <div>@role</div>
+                        }
+                    </td>
+                    <td>
+                        <form method="post" asp-action="Delete"
+                              asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-primary">
+                                Delete User
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" asp-action="AddRole" asp-controller="User" asp-area="Admin" asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-primary">
+                                Add Role
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        @foreach (string role in user.Rolename)
+                        {
+                            <form method="post" asp-action="RemoveRole" asp-route-id="@user.Id" asp-route-roleid="@role">
+                                <button type="submit" class="btn btn-primary">
+                                    Remove Role
+                                </button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h1 class="mb-2">Manage Roles</h1>
+
+@if (Model.Roles.Count() == 0)
+{
+    <form method="post" asp-action="CreateAdminRole">
+        <button type="submit" class="btn btn-primary">
+            Create Admin Role
+        </button>
+    </form>
+}
+else
+{
+
+    <form method="post" asp-action="SaveRole" class="d-flex mb-2">
+        <label> Create Role:</label>
+
+        <input type="text" class="form-control col-sm-6" style="margin-left:5px;" name="RoleName" />
+        <button type="submit" class="btn btn-primary" style="margin-left:4px">
+            Create Role
+        </button>
+    </form>
+    <table class="table table-bordered table-striped table-sm">
+        <thead>
+            <tr><th>Role</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var ROLE in Model.Roles)
+            {
+                <tr>
+                    <td>@ROLE.Name</td>
+                    <td>
+                        <form method="post" asp-action="DeleteRole"
+                      asp-route-id="@ROLE.Id">
+                            <button type="submit" class="btn btn-primary">
+                                Delete Role
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+            <style>
+    /* Style for the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd !important;
+        padding: 8px !important;
+        text-align: left !important;
+    }
+
+    th {
+        background-color: #f2f2f2 !important;
+    }
+
+    /* Style for buttons */
+    .btn {
+        padding: 8px 16px !important;
+        margin: 4px !important;
+        cursor: pointer !important;
+    }
+
+    .btn-primary {
+        background-color: #007bff !important;
+        color: #fff !important;
+        border: none !important;
+    }
+
+    /* Style for forms */
+    form {
+        margin: 0 !important;
+        display: inline !important;
+    }
+
+    /* Additional styles for labels and input fields */
+    label {
+        margin-right: 10px !important;
+    }
+
+    .form-control {
+        width: 200px !important;
+    }
+
+    /* Additional spacing */
+    .mb-2 {
+        margin-bottom: 20px !important;
+    }
+
+    .mt-2 {
+        margin-top: 20px !important;
+    }
+
+    .d-flex {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+</style>

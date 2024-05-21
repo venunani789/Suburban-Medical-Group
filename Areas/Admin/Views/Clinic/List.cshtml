@@ -1,0 +1,77 @@
+﻿@model List<SububanMedicalGroupSMGWebApp.Models.DomainModels.Clinic>
+@{
+    ViewData["Title"] = "Clinic List";
+}
+@if (@TempData["HeaderMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">@TempData["HeaderMessage"]</h4>
+        <p>@TempData["SuccessMessage"]</p>
+        <hr>
+    </div>
+}
+<h1>@ViewBag.Title</h1>
+<div class="row" style="margin-top:3em">
+    <div class="col-md-10">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Address Street</th>
+                    <th>Address Town</th>
+                    <th>Address State</th>
+                    <th>Address Post Code</th>
+                    <th>Phone Number</th>
+                    <th>Open Hours</th>
+                    <th></th>
+                    <th></th>
+            </thead>
+            <tbody>
+                @foreach (var clinic in Model)
+                {
+                    <tr>
+                        <td>@clinic.AddressStreet</td>
+                        <td>@clinic.AddressTown</td>
+                        <td>@clinic.AddressState</td>
+                        <td>@clinic.AddressPostCode</td>
+                        <td>@clinic.PhoneNumber</td>
+                        @if (clinic.OpenHoursId == 1)
+                        {
+                            <td>8am–8pm</td>
+                        }
+                        else if (clinic.OpenHoursId == 2)
+                        {
+                            <td>9am–9pm</td>
+                        }
+                        else if (clinic.OpenHoursId == 3)
+                        {
+                            <td>8am-4pm</td>
+                        }
+                        else if (clinic.OpenHoursId == 4)
+                        {
+                            <td>8am-5pm</td>
+                        }
+                        else if (clinic.OpenHoursId == 5)
+                        {
+                            <td>8am-12pm</td>
+                        }
+                        else if (clinic.OpenHoursId == 6)
+                        {
+                            <td>9am-1pm</td>
+                        }
+                        else if (clinic.OpenHoursId == 7)
+                        {
+                            <td>Closed</td>
+                        }
+                        <td>
+                            <a asp-action="Update" asp-route-id="@clinic.ClinicId" class="btn btn-success">Update</a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@clinic.ClinicId" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="Add" class="btn btn-primary">Add New Clinic</a>
+    </div>
+</div>

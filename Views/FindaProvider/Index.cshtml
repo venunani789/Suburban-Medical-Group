@@ -1,0 +1,197 @@
+﻿@using SububanMedicalGroupSMGWebApp.Models.DomainModels;
+@using SububanMedicalGroupSMGWebApp.Models.Grid;
+@model SububanMedicalGroupSMGWebApp.Models.ViewModels.SMGViewModel
+@{
+    ViewData["Title"] = "Physicians List";
+    SMGGridData current = Model.CurrentRoute;
+    GridData routes = Model.CurrentRoute.Clone();
+}
+@if (@TempData["PhysicianMessage"] != null)
+{
+    <div style="margin-top:8em; background: green">
+        <h4>@TempData["PhysicianMessage"]</h4>
+    </div>
+}
+<h1>@ViewBag.Title</h1>
+<div class="row">
+@*    <div class="col-md-3" >
+        <h3 class="mt-3">Specialities</h3>
+        <div class="list-group">
+            <a asp-action="Index"
+               asp-route-activeSpecs="all"
+               asp-route-activeGens="@Model.ActiveGens"
+               asp-route-activeTowns="@Model.ActiveTowns"
+               class="list-group-item @Model.CheckActiveSpecs("all")">
+                All
+            </a>
+            @foreach (SububanMedicalGroupSMGWebApp.Models.DomainModels.Speciality spec in Model.Specialities)
+            {
+                <a asp-action="Index"
+               asp-route-activeSpecs="@spec.SpecialityID"
+               asp-route-activeTowns="@Model.ActiveTowns"
+               asp-route-activeGens="@Model.ActiveGens"
+                   class="list-group-item @Model.CheckActiveSpecs(spec.SpecialityID.ToString())">
+                    @spec.Specialities
+                </a>
+            }
+        </div>
+        <h3 class="mt-3">Towns of Clinic</h3>
+        <div class="list-group">
+            <a asp-action="Index"
+               asp-route-activeTowns="all"
+               asp-route-activeSpecs="@Model.ActiveSpecs"
+               asp-route-activeGens="@Model.ActiveGens"
+               class="list-group-item @Model.CheckActiveTowns("all")">
+                All
+            </a>
+            @foreach (SububanMedicalGroupSMGWebApp.Models.DomainModels.Clinic conf in Model.Clinics)
+            {
+                <a asp-action="Index"
+               asp-route-activeTowns="@conf.ClinicId"
+               asp-route-activeSpecs="@Model.ActiveSpecs"
+               asp-route-activeGens="@Model.ActiveGens"
+                   class="list-group-item @Model.CheckActiveTowns(conf.ClinicId.ToString())">
+                    @conf.AddressTown
+                </a>
+            }
+        </div>
+        <h3 class="mt-3">Gender</h3>
+        <div class="list-group">
+            <a asp-action="Index"
+               asp-route-activeGens="all"
+               asp-route-activeTowns="@Model.ActiveTowns"
+               asp-route-activeSpecs="@Model.ActiveSpecs"
+               class="list-group-item @Model.CheckActiveGens("all")">
+                All
+            </a>
+            @foreach (var Gens in ViewBag.GenderFilterValues)
+            {
+                <a asp-action="Index"
+               asp-route-activeGens="@Gens.Key"
+               asp-route-activeSpecs="@Model.ActiveSpecs"
+               asp-route-activeTowns="@Model.ActiveTowns"
+                   class="list-group-item @Model.CheckActiveGens(Gens.Key)">
+                    @Gens.Value
+                </a>
+            }
+        </div>
+    </div>
+*@
+    <div class="col-md-3">
+        <form asp-action="Index" asp-controller="FindaProvider" method="get">
+        <h3 class="mt-3">Specialities</h3>
+            <div class="list-group">
+                <select name="activeSpecs" class="form-control">
+                    <option value="all" class="@Model.CheckActiveSpecs("all")">All</option>
+                    @foreach (SububanMedicalGroupSMGWebApp.Models.DomainModels.Speciality Spec in Model.Specialities)
+                    {
+                        if (Model.ActiveSpecs == Spec.SpecialityID.ToString())
+                        {
+                            <option value="@Spec.SpecialityID" selected="true" class="@Model.CheckActiveSpecs(Spec.SpecialityID.ToString())">
+                                @Spec.Specialities
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@Spec.SpecialityID" class="@Model.CheckActiveSpecs(Spec.SpecialityID.ToString())">
+                                @Spec.Specialities
+                            </option>
+                        }
+
+                    }
+                </select>
+            </div>
+            <h3 class="mt-3">Clinic Towns</h3>
+            <div class="list-group">
+                <select name="activeTowns" class="form-control">
+                    <option value="all" class="@Model.CheckActiveTowns("all")">All</option>
+                    @foreach (SububanMedicalGroupSMGWebApp.Models.DomainModels.Clinic CL in Model.Clinics)
+                    {
+                        if (Model.ActiveTowns == CL.ClinicId.ToString())
+                        {
+                            <option value="@CL.ClinicId" selected="true" class="@Model.CheckActiveTowns(@CL.ClinicId.ToString())">
+                                @CL.AddressTown
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@CL.ClinicId" class="@Model.CheckActiveTowns(@CL.ClinicId.ToString())">
+                                @CL.AddressTown
+                            </option>
+                        }
+
+                    }
+                </select>
+            </div>
+            <h3 class="mt-3">Gender</h3>
+            <div class="list-group">
+                <select name="activeGens" class="form-control">
+                    <option value="all" class="@Model.CheckActiveGens("all")">All</option>
+                    @foreach (var GD in ViewBag.GenderFilterValues)
+                    {
+                        if (Model.ActiveGens == GD.Key)
+                        {
+                            <option value="@GD.Key" selected="true" class="@Model.CheckActiveGens(GD.Key)">
+                                @GD.Value
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@GD.Key" class="@Model.CheckActiveGens(GD.Key)">
+                                @GD.Value
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+            <h3 class="mt-3">Sort options</h3>
+            <div class="list-group">
+                <select name="activeSorter" class="form-control">
+                    <option value="Loc">Location</option>
+                    <option value="A-Z">Last Name (A-Z)</option>
+                    <option value="Z-A">Last Name (Z-A)</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Apply Filters</button>
+            <a asp-action="Index" asp-route-id="" class="btn btn-primary">Clear</a>
+        </form>
+    </div>
+
+
+
+
+    <div class="col-md-9">
+    <div class="container mt-5">
+            <div class="row">
+                @foreach (SububanMedicalGroupSMGWebApp.Models.DomainModels.Physician physician in Model.Physic)
+                {
+                    <div class="col-md-4 mb-4" style="background:powderblue">
+                        <a asp-action="Details" asp-route-id="@physician.PhysicianID">
+                            <img src="~/images/@(physician.FirstName).png" alt="@physician.FirstName @physician.LastName" class="card-img-top img-fluid" />
+                        </a>
+                        <a asp-action="Details" asp-route-id="@physician.PhysicianID">
+                            <h5 class="card-title">@physician.FirstName &nbsp; @physician.LastName</h5>
+                        </a>
+                        <h5>@physician.FirstName @physician.LastName</h5>
+                        <p>@physician.Specialities.Specialities</p>
+                        <p>@physician.Clinic.AddressTown</p>
+                        <a asp-action="Details" class="btn btn-primary" asp-route-id="@physician.PhysicianID">Details</a>
+                    </div>
+                }
+            </div>
+    </div>
+        @{
+            routes = current.Clone();
+
+            for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                routes.PageNumber = i;
+                string active = @Nav.Active(i, current.PageNumber);
+                <a asp-action="Index" asp-all-route-data="@routes.ToDictionary()"
+               class="btn btn-outline-primary @active" style="border:#0d6efd !important;">@i</a>
+            }
+        }
+    </div>
+
+
+</div>

@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "_Layout";
+
+    string controller =
+        ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    string action =
+        ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+}
+   
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img src="~/images/sub-logo.png" style="width:8em" />Sububan Medical Group (SMG)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @*<li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "LoginPage" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="LoginPage">Login</a>
+                    </li>*@
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "FindAProvider" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="FindAProvider"><i class="fa fa-stethoscope" aria-hidden="true"></i>Find A Provider</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "Service" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Service"><i class="fa fa-ambulance" aria-hidden="true"></i>Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "Resources" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Resources"><i class="fa fa-book" aria-hidden="true"></i>Resource</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark @(controller == "Home" && action == "ImmediateCare" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="ImmediateCare"><i class="fa fa-plus-square-o"></i>ImmediateCare</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav id="navbarSupportedContent" class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div id="sticky" class="container-fluid">
+            <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+            <a class="nav-link @(controller == "Patients" && action == "List" ? "active" : "")"
+                       asp-area="Admin" asp-controller="Patients" asp-action="List">
+                <i class="fa fa-users" aria-hidden="true"></i>Maintain Patients
+            </a>
+            </li>
+                <li class="nav-item">
+            <a class="nav-link @(controller == "Physician" ? "active" : "")"
+               asp-area="Admin" asp-controller="Physician" asp-action="List">
+                <i class="fa fa-user-md" aria-hidden="true"></i>Maintain Physician
+            </a>
+                </li>
+                <li class="nav-item">
+            <a class="nav-link @(controller == "ImmediateCare" ? "active" : "")"
+               asp-area="Admin" asp-controller="ImmediateCare" asp-action="ImmediateCare">
+                <i class="fa fa-plus-square" aria-hidden="true"></i>Maintain Immediate Care
+            </a>
+                </li>
+                <li class="nav-item">
+            <a class="nav-link @(controller == "Clinic" ? "active" : "")"
+               asp-area="Admin" asp-controller="Clinic" asp-action="List">
+                <i class="fa fa-plus-square" aria-hidden="true"></i>Maintain Clinic
+            </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-action="Index" asp-controller="User"
+                       class="nav-item nav-link  @(controller == "User" ? "active" : "")">
+                        Manage Users
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-item nav-link"
+               asp-area="" asp-controller="Home" asp-action="Index" style="border: 1px solid black; padding: 5px;">View Site</a>
+        </div>
+    </nav>
+</header>
+<main>
+    @RenderBody()
+</main>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    $(document).ready(function () {
+        $('.navbar-nav .nav-link').on('click', function () {
+            $('.navbar-nav .nav-link').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>
+<style>
+    .navbar-nav .nav-link.active {
+        font-weight: bold;
+        background-color: white !important;
+    }
+
+    .navbar-nav .nav-link:hover {
+        background-color: white !important;
+    }
+
+    /*nav#navbarSupportedContent {
+        position: fixed;
+        width: 82%;
+    }*/
+</style>
+@section scripts{
+    @RenderSection("scripts", required:false)
+}

@@ -1,0 +1,43 @@
+﻿@model SububanMedicalGroupSMGWebApp.Models.DomainModels.Clinic
+@{
+    ViewBag.Title = ViewBag.Action + " Clinic";
+}
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/
+                       jquery.validate.unobtrusive.min.js"></script>
+}
+<div class="">
+<h1>@ViewBag.Title</h1>
+<form asp-action="Update" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="AddressStreet" class="form-label"></label>
+        <input asp-for="AddressStreet" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddressTown" class="form-label"></label>
+        <input asp-for="AddressTown" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddressState" class="form-label"></label>
+        <input asp-for="AddressState" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddressPostCode" class="form-label"></label>
+        <input asp-for="AddressPostCode" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label"></label>
+        <input asp-for="PhoneNumber" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="OpenHoursId" class="form-label">OpenHours</label>
+            <select asp-for="OpenHoursId" asp-items="@(new SelectList(ViewBag.OpenHours,"OpenHoursId", "Hours"))" class="form-select"></select>
+    </div>
+    <input type="hidden" asp-for="ClinicId" />
+
+    <button type="submit" class="btn btn-success">@ViewBag.Action</button>
+    <a asp-action="List" class="btn btn-danger">Cancel</a>
+</form>
+</div>

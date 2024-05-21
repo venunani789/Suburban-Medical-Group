@@ -1,0 +1,18 @@
+﻿
+<h2 style="margin-top:60px">Add Role</h2>
+
+<form asp-action="addOtherRole" method="post">
+    <input name="UserID" value="@ViewBag.USERUID" hidden />
+<div class="row-mb-2 d-flex">
+        <label class="col-form-label col-md-2">Role:</label>
+        @Html.DropDownList("RoleID", new SelectList(ViewBag.ROLE, "Id", "Name"), new {@class = "form-control"})
+</div>
+    <div class="row">
+        <div class="col offset-2">
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a asp-action="Index" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+

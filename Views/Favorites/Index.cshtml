@@ -1,0 +1,46 @@
+﻿@model SububanMedicalGroupSMGWebApp.Models.ViewModels.SMGViewModel
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+<div class="text-center mb-4">
+    <h2>My Favorites</h2>
+    <form asp-action="Delete" method="post">
+        <a asp-action="Index" asp-controller="FindaProvider" class="btn btn-primary"
+           asp-route-activeSpecs="@Model.ActiveSpecs"
+           asp-route-activeGens="@Model.ActiveGens"
+           asp-route-activeTowns="@Model.ActiveTowns">
+            Back to Home Page
+        </a>
+        <button type="submit" class="btn btn-primary">
+            Clear Favorites
+        </button>
+    </form>
+</div>
+
+
+<div class="row">
+    <div class="col-8 offset-2">
+        <ul class="list-group">
+            @foreach (SububanMedicalGroupSMGWebApp.Models.DomainModels.Physician team in Model.Physicians)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="~/images/@(team.FirstName).png" alt="@team.FirstName @team.LastName" />
+                        </div>
+                        <div class="col-sm-2">
+                            @team.FirstName @team.LastName
+                        </div>
+                        <div class="col-sm-2">
+                            @team.Specialities.Specialities
+                        </div>
+                        <div class="col-sm-2">
+                            @team.Clinic.AddressTown
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
